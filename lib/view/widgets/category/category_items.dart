@@ -13,10 +13,12 @@ import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/get_utils/src/extensions/context_extensions.dart';
-/*
+
 class CategoryItems extends StatelessWidget {
+
   final String categoryTitle;
   final CategoryModels categoryModels;
+
   CategoryItems({
     required this.categoryTitle,
     Key? key, required this.categoryModels,
@@ -26,7 +28,7 @@ class CategoryItems extends StatelessWidget {
 
   final cartController = Get.find<CartController>();
 
-  final categoryController = Get.find<CategoryController>();
+ final categoryController = Get.find<CategoryController>();
 
 
 
@@ -48,7 +50,7 @@ class CategoryItems extends StatelessWidget {
           );
         } else {
           return GridView.builder(
-            itemCount: categoryController.categoryList.length,
+            itemCount: categoryController.dataList.length,
             gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
               childAspectRatio: 0.8,
               mainAxisSpacing: 9.0,
@@ -56,14 +58,15 @@ class CategoryItems extends StatelessWidget {
               maxCrossAxisExtent: 200,
             ),
             itemBuilder: (context, index) {
-              return buildCardItems(
-                  image: categoryController.categoryList[index].image,
-                  categoryId: categoryController.categoryList[index].id,
-                  categoryModels: categoryController.categoryList[index],
+              return buildCategoryItems(
+                  image: categoryController.dataList.value.toList()[index].image,
+                 title: categoryController.dataList.value.toList()[index].title,
+                  categoryId: categoryController.dataList.value.toList()[index].id,
+                  categoryModels: categoryController.dataList.value.toList()[index],
                   onTap: () {
                     Get.to(() => ProductDetailsScreen(
                       productModels: controller.productList[index],
-                      categoryModels: categoryController.categoryList[index],
+                      categoryModels: categoryController.dataList.value.toList()[index],
                     ));
                },
               );
@@ -74,10 +77,11 @@ class CategoryItems extends StatelessWidget {
     );
   }
 
-  Widget buildCardItems({
-    required String image,
-    required int categoryId,
-    required CategoryModels categoryModels,
+  Widget buildCategoryItems({
+    required String? image,
+    required String? title,
+    required int? categoryId,
+    required CategoryModels? categoryModels,
     required Function() onTap,
   }) {
     return Padding(
@@ -104,9 +108,9 @@ class CategoryItems extends StatelessWidget {
                   children: [
                     IconButton(
                       onPressed: () {
-                        controller.manageFavorites(categoryId);
+                        controller.manageFavourites(categoryId!);
                       },
-                      icon: controller.isFavorites(categoryId)
+                      icon: controller.isFavourites(categoryId!)
                           ? const Icon(
                         Icons.favorite,
                         color: Colors.red,
@@ -118,7 +122,7 @@ class CategoryItems extends StatelessWidget {
                     ),
                     IconButton(
                       onPressed: () {
-                        cartController..addProductsToCart(productModels);
+               //  cartController.addProductsToCart(productModels);
                       },
                       icon: const Icon(
                         Icons.shopping_cart,
@@ -136,7 +140,7 @@ class CategoryItems extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Image.network(
-                  image,
+                  image!,
                   fit: BoxFit.fitHeight,
                 ),
               ),
@@ -191,4 +195,3 @@ class CategoryItems extends StatelessWidget {
   }
 }
 
-*/

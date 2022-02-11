@@ -4,38 +4,37 @@
 
 import 'dart:convert';
 
-List<CategoryModels> categoryModelsFromJson(String str) => List<CategoryModels>.from(json.decode(str).map((x) => CategoryModels.fromJson(x)));
+CategoryModels categoryModelsFromJson(String str) => CategoryModels.fromJson(json.decode(str));
 
-String categoryModelsToJson(List<CategoryModels> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String categoryModelsToJson(CategoryModels data) => json.encode(data.toJson());
 
 class CategoryModels {
   CategoryModels({
-    required this.id,
-    required this.title,
-    required this.icon,
-    required this.image,
-    required this.slug,
-    required this.status,
-    required this.top,
+    this.id,
+    this.icon,
+    this.image,
+    this.slug,
+    this.status,
+    this.top,
     this.createdAt,
     this.updatedAt,
-    required this.imge,
+    this.title,
+    this.imge,
   });
 
-  int id;
-  String title;
-  String icon;
-  String image;
-  String slug;
-  int status;
-  int top;
+  int? id;
+  String? icon;
+  String? image;
+  String? slug;
+  bool? status;
+  int? top;
   dynamic createdAt;
   dynamic updatedAt;
-  String imge;
+  String? title;
+  String? imge;
 
   factory CategoryModels.fromJson(Map<String, dynamic> json) => CategoryModels(
     id: json["id"],
-    title: json["title"],
     icon: json["icon"],
     image: json["image"],
     slug: json["slug"],
@@ -43,12 +42,12 @@ class CategoryModels {
     top: json["top"],
     createdAt: json["created_at"],
     updatedAt: json["updated_at"],
+    title: json["title"],
     imge: json["imge"],
   );
 
   Map<String, dynamic> toJson() => {
     "id": id,
-    "title": title,
     "icon": icon,
     "image": image,
     "slug": slug,
@@ -56,6 +55,34 @@ class CategoryModels {
     "top": top,
     "created_at": createdAt,
     "updated_at": updatedAt,
+    "title": title,
     "imge": imge,
   };
 }
+
+
+/*
+  CategoryServices categoryServices =  CategoryServices();
+  var category = CategoryModels().obs;
+  var isLoading = true.obs;
+
+ @override
+  void onInit() {
+   getCategory();
+    super.onInit();
+  }
+
+  void getCategory() async{
+   try{
+     isLoading(true);
+     var categories = await CategoryServices.getCategory();
+     if(categories != null){
+     category.value =categories ;
+
+     }
+   }finally{
+     isLoading(false);
+   }
+  }
+}
+ */

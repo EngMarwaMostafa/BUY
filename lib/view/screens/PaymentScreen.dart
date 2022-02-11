@@ -1,14 +1,20 @@
+import 'package:buyit/logic/controllers/cart_controller.dart';
 import 'package:buyit/routes/routes.dart';
 import 'package:buyit/utils/theme.dart';
 import 'package:buyit/view/widgets/Payment/Radio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_utils/src/extensions/context_extensions.dart';
 
 class PaymentScreen extends StatefulWidget {
-  const PaymentScreen({Key? key}) : super(key: key);
+  PaymentScreen({Key? key}) : super(key: key);
+
+  final cartController = Get.find<CartController>();
+
+  //final payMentController = Get.find<PayMentController>();
 
   @override
   State<PaymentScreen> createState() => _PaymentScreenState();
@@ -36,36 +42,19 @@ class _PaymentScreenState extends State<PaymentScreen> {
       ),
       body: Column(
         children: [
-          IconButton(
-            icon: const Icon(Icons.arrow_back_ios_outlined),
-            color: Colors.green,
-            onPressed: () {
-              Get.back();
-            },
-          ),
-          const SizedBox(
-            width: 24,
-          ),
-          const Text(
-            'Payment',
-            style: TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
-              color: Color(0xff515C6F),
-            ),
-          ),
           Container(
-            height: 50,
+            height: 40,
             color: Colors.black,
             child: Padding(
-              padding: const EdgeInsets.only(left: 14, top: 14),
+              padding: const EdgeInsets.only(left: 30, top: 3),
               child: Row(
+               crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
                     width: 150,
                     child: InkWell(
                       onTap: () {
-                        Get.toNamed(Routes.newAdressScreen);
+                    Get.toNamed(Routes.newAdressScreen);
                       },
                       child: const Icon(
                         Icons.location_on_outlined,
@@ -79,7 +68,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     width: 150,
                     child: InkWell(
                       onTap: () {
-                        Get.toNamed(Routes.newAdressScreen);
+                        Get.toNamed(Routes.paymentScreen);
                       },
                       child: const Icon(
                         Icons.credit_card,
@@ -93,7 +82,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
               ),
             ),
           ),
-      const RadioWidget(),
+          const PayMentMethodWidget(),
         ],
       ),
     );

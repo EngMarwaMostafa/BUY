@@ -4,12 +4,12 @@
 
 import 'dart:convert';
 
-RegisterParms registerParmsFromJson(String str) => RegisterParms.fromJson(json.decode(str));
+RegisterRequest registerRequestFromJson(String str) => RegisterRequest.fromJson(json.decode(str));
 
-String registerParmsToJson(RegisterParms data) => json.encode(data.toJson());
+String registerRequestToJson(RegisterRequest data) => json.encode(data.toJson());
 
-class RegisterParms {
-  RegisterParms({
+class RegisterRequest {
+  RegisterRequest({
     this.name,
     this.email,
     this.mobile,
@@ -21,7 +21,7 @@ class RegisterParms {
   String? mobile;
   String? password;
 
-  factory RegisterParms.fromJson(Map<String, dynamic> json) => RegisterParms(
+  factory RegisterRequest.fromJson(Map<String, dynamic> json) => RegisterRequest(
     name: json["name"],
     email: json["email"],
     mobile: json["mobile"],

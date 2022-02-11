@@ -1,8 +1,5 @@
-import 'dart:ui';
 
 import 'package:buyit/utils/my_string.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:get_storage/get_storage.dart';
@@ -16,7 +13,7 @@ class SettingsController extends GetxController {
   @override
   void onInit() async{
     super.onInit();
-    langLocal = await getLanguage;
+    // langLocal = await getLanguage;
   }
 
 void saveLanguage(String lang)async{
@@ -24,7 +21,7 @@ void saveLanguage(String lang)async{
 }
 
 //getLang.
-Future<String> get getLanguage async{
+Future get getLanguage async{
   return await storage.read('lang');
 }
 

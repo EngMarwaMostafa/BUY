@@ -1,18 +1,28 @@
-
 import 'package:buyit/models/product_models.dart';
 import 'package:buyit/utils/my_string.dart';
-import 'package:http/http.dart' as http;
-
+import 'package:dio/dio.dart';
 
 class ProductServices {
-  static Future<List<ProductModels>> getProduct() async {
-    var response = await http.get(Uri.parse('$baseUrl/products?lang=en&categoryId=1'));
+  final Dio _dio = Dio();
 
-    if (response.statusCode == 200) {
-      var  jsonData = response.body;
-      return productModelsFromJson(jsonData);
-    } else {
-      return throw Exception("Failed to load product");
-    }
+  // Future<List<ProductModels>> getProduct() async {
+  //   Response response =
+  //       await _dio.get('$baseUrl/products?lang=en&categoryId=1');
+  //
+  //   if (response.statusCode == 200) {
+  //     var jsonData = response.data;
+  //     return jsonData.map((e) => ProductModels.fromJson(e)).toList();
+  //   } else {
+  //     return throw Exception("Failed to load product");
+  //   }
+  // }
+Future<List<ProductModels>> getProduct() async {
+  Response response = await _dio.get(
+      "https://findfamily.net/eshop/api/buyers/products?lang=en&categoryId=1");
+  if (response.statusCode == 200) {
+    Iterable list = response.data['data'];
+    print(response.data);
+    return list.map((e) => ProductModels.fromJson(e)).toList();
   }
-}
+  throw 'exception';
+}}

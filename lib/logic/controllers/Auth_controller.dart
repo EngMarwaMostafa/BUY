@@ -1,16 +1,19 @@
+
 import 'dart:convert';
+
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+
 
 class AuthController extends GetxController {
   final box = GetStorage().obs;
   var authenicated = false.obs;
   AuthController() {
-   authenicated(box.value.read("auth") != null);
+    authenicated(box.value.read("auth") != null);
   }
   login(username, password) {
     var users;
- users = box.value.read("users") ?? [];
+    users = box.value.read("users") ?? [];
     users = jsonDecode(users.toString());
 
     var index = -1;
@@ -22,13 +25,12 @@ class AuthController extends GetxController {
         break;
       }
     }
-    if (index != -1) {
+    if (index != -1)
       box.value.write("auth", authenicated.value ? users[index]["id"] : null);
-    }
     return authenicated.value;
   }
 
-  register(username, password) {
+  register(username, password, email,confirmPassword) {
     var users;
     users = box.value.read("users") ?? [];
     users = jsonDecode(users.toString());
@@ -38,7 +40,7 @@ class AuthController extends GetxController {
       "password": password,
     };
     users.add(user);
-   box.value.write("users", jsonEncode(users));
+    box.value.write("users", jsonEncode(users));
     box.value.write("auth", user["id"]);
     authenicated(true);
   }

@@ -1,4 +1,4 @@
-import 'package:buyit/logic/controllers/auth_controller.dart';
+import 'package:buyit/logic/controllers/Auth_controller.dart';
 import 'package:buyit/utils/theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +7,6 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
-
 import '../text_utils.dart';
 
 class LogOutWidget extends StatelessWidget {
@@ -83,3 +82,4 @@ class LogOutWidget extends StatelessWidget {
     );
   }
 }
+

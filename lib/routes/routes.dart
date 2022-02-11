@@ -2,13 +2,14 @@
 import 'package:buyit/logic/bindings/AuthBinding.dart';
 import 'package:buyit/logic/bindings/MainBinding.dart';
 import 'package:buyit/logic/bindings/ProdutBinding.dart';
-import 'package:buyit/view/screens/NewAddressScreen.dart';
+import 'package:buyit/view/screens/auth/ForgotPasswordScreen.dart';
+import 'package:buyit/view/screens/ckeck_out/EditAddressScreen.dart';
+import 'package:buyit/view/screens/ckeck_out/NewAddressScreen.dart';
 import 'package:buyit/view/screens/PaymentScreen.dart';
 import 'package:buyit/view/screens/FavoriteScreen.dart';
 import 'package:buyit/view/screens/MainScreen.dart';
 import 'package:buyit/view/screens/SettingsScreen.dart';
 import 'package:buyit/view/screens/ShoppingCartScreen.dart';
-import 'package:buyit/view/screens/SplashScreen.dart';
 import 'package:buyit/view/screens/auth/LoginScreen.dart';
 import 'package:buyit/view/screens/auth/ProfileScreen.dart';
 import 'package:buyit/view/screens/auth/SignupScreen.dart';
@@ -19,15 +20,11 @@ import 'package:get/get.dart';
 
 class AppRoutes {
   //initialRoute
-  static const splash = Routes.splashScreen;
+  static const onBoardScreen = Routes.onBoardScreen;
    static const mainScreen = Routes.mainScreen;
 
    //getPages
   static final routes = [
-    GetPage(
-    name: Routes.splashScreen ,
-    page: () => SplashScreen()),
-
     GetPage(
         name: Routes.signUpScreen ,
         page: () => const SignUpScreen(),
@@ -67,6 +64,11 @@ class AppRoutes {
       page: () => SideBar(),
     ),
 
+    GetPage(
+      name: Routes.forgotPasswordScreen,
+      page: () => ForgotPasswordScreen(),
+    ),
+
 
     GetPage(
       name: Routes.profileScreen,
@@ -79,21 +81,36 @@ class AppRoutes {
     ),
 
     GetPage(
-      name: Routes.settingsScreen,
+      name: Routes.paymentScreen,
       page: () => PaymentScreen(),
+      binding:
+        ProductBinding(),
     ),
 
     GetPage(
       name: Routes.newAdressScreen,
       page: () => NewAddressScreen(),
     ),
+
+    GetPage(
+      name: Routes.editAdressScreen,
+      page: () => EditAddressScreen(),
+    ),
+
+    GetPage(
+      name: Routes.onBoardScreen,
+      page: () => OnBoardScreen(),
+    ),
+
   ];
 }
 
 class Routes {
   static const splashScreen = '/splash';
+  static const onBoardScreen = '/onBoardScreen';
   static const signUpScreen = '/signup_screen';
   static const loginScreen = '/login_screen';
+  static  const forgotPasswordScreen = '/forgotPasswordScreen';
   static const homeScreen = '/home_screen';
   static const mainScreen = '/mainScreen';
   static const ShoppingCartScreen = '/shoppingCartScreen';
@@ -102,6 +119,7 @@ class Routes {
   static const sideBar ='/sideBar';
   static const profileScreen ='/profileScreen';
   static const settingsScreen = '/settingsScreen';
-  static const paymentScreen = '/checkoutScreen ';
-  static const newAdressScreen = '/newAdressScreen';
+  static const paymentScreen = '/paymentScreen ';
+  static const newAdressScreen = '/newAddressScreen';
+  static const editAdressScreen = '/editAddressScreen';
 }

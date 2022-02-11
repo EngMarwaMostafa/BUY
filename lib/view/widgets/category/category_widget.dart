@@ -1,3 +1,4 @@
+// ignore_for_file: invalid_use_of_protected_member
 
 import 'package:buyit/logic/controllers/category_controller.dart';
 import 'package:buyit/utils/theme.dart';
@@ -9,16 +10,16 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 
 import 'category_items.dart';
-/*
-class CategoryWidget extends StatelessWidget {
-  CategoryWidget({Key? key}) : super(key: key);
 
+class CategoryWidget extends StatelessWidget {
+  CategoryWidget({Key? key, this.categoryTitle}) : super(key: key);
+  final String? categoryTitle;
   final controller = Get.find<CategoryController>();
 
   @override
   Widget build(BuildContext context) {
     return Obx(
-          () {
+      () {
         if (controller.isLoading.value) {
           return Center(
             child: CircularProgressIndicator(
@@ -31,11 +32,15 @@ class CategoryWidget extends StatelessWidget {
               itemBuilder: (context, index) {
                 return InkWell(
                   onTap: () {
-                    controller.getCategories();
-                    Get.to(() => CategoryItems(
-                      categoryTitle: controller.categoryList[index].title,
-                      categoryModels: controller.categoryList[index],
-                    ));
+                    controller.getCategory();
+                    Get.to(
+                      () => CategoryItems(
+                        categoryTitle:
+                            controller.dataList.value.toList()[index].title!,
+                        categoryModels:
+                            controller.dataList.value.toList()[index],
+                      ),
+                    );
                   },
                   child: Container(
                     height: 150,
@@ -45,7 +50,7 @@ class CategoryWidget extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10),
                       image: DecorationImage(
                         image: NetworkImage(
-                          controller.categoryList[index].image,
+                          controller.dataList.value.toList()[index].imge!,
                         ),
                         fit: BoxFit.cover,
                       ),
@@ -55,7 +60,7 @@ class CategoryWidget extends StatelessWidget {
                       child: Align(
                         alignment: Alignment.bottomLeft,
                         child: Text(
-                          controller.categoryList[index].title,
+                          controller.dataList.value.toList()[index].id!.toString(),
                           style: const TextStyle(
                             backgroundColor: Colors.black38,
                             color: Colors.white,
@@ -73,7 +78,7 @@ class CategoryWidget extends StatelessWidget {
                   height: 20,
                 );
               },
-              itemCount: controller.categoryList.length,
+              itemCount: controller.dataList.value.length,
             ),
           );
         }
@@ -81,5 +86,3 @@ class CategoryWidget extends StatelessWidget {
     );
   }
 }
-
- */
