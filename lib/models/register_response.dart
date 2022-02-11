@@ -6,28 +6,15 @@ import 'dart:convert';
 
 RegisterResponse registerResponseFromJson(String str) => RegisterResponse.fromJson(json.decode(str));
 
-String registerResponseToJson(RegisterResponse data) => json.encode(data.toJson());
-
 class RegisterResponse {
-  RegisterResponse({
-    this.status,
-    this.errNum,
-    this.msg,
-  });
+  String? token;
+  int? id;
 
-  bool? status;
-  String? errNum;
-  String? msg;
+  RegisterResponse({this.token, this.id});
 
-  factory RegisterResponse.fromJson(Map<String, dynamic> json) => RegisterResponse(
-    status: json["status"],
-    errNum: json["errNum"],
-    msg: json["msg"],
-  );
+  RegisterResponse.fromJson(Map<String, dynamic> json) {
+    token = json['token'];
+    id = json['id'];
+  }
 
-  Map<String, dynamic> toJson() => {
-    "status": status,
-    "errNum": errNum,
-    "msg": msg,
-  };
 }

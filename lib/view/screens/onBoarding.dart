@@ -1,17 +1,23 @@
 
+import 'package:buyit/logic/controllers/Auth_controller.dart';
+import 'package:buyit/logic/controllers/cart_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_overboard/flutter_overboard.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
 import 'auth/LoginScreen.dart';
 
-class SplashScreen extends StatefulWidget {
-  SplashScreen({Key? key}) : super(key: key);
+class OnBoardScreen extends StatefulWidget {
+  OnBoardScreen({Key? key}) : super(key: key);
+
+  final controller = Get.put(AuthController());
 
   @override
-  _SplashScreenState createState() => _SplashScreenState();
+  _OnBoardScreenState createState() => _OnBoardScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _OnBoardScreenState extends State<OnBoardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,20 +42,20 @@ class _SplashScreenState extends State<SplashScreen> {
     PageModel(
         color: Colors.purple,
         imageAssetPath: 'assets/splash.jpg',
-        title: 'Screen 1',
-        body: 'Share your ideas with the team',
+        title: 'BUY IT',
+        body: 'You will find what you dream',
         doAnimateImage: true),
     PageModel(
-        color: Colors.blue,
+        color: Colors.pinkAccent,
         imageAssetPath: 'assets/splash.jpg',
-        title: 'Screen 2',
+        title: 'BUY IT',
         body: 'See the increase in productivity & output',
         doAnimateImage: true),
     PageModel(
-        color: Colors.green,
+        color: Colors.deepOrange,
         imageAssetPath: 'assets/splash.jpg',
-        title: 'Screen 3',
-        body: 'Connect with the people from different places',
+        title: 'BUY IT',
+        body: 'Discounts all over the year',
         doAnimateImage: true),
   ];
 }

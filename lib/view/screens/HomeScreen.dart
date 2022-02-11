@@ -1,11 +1,14 @@
 
 import 'package:buyit/logic/controllers/cart_controller.dart';
 import 'package:buyit/logic/controllers/product_controller.dart';
+import 'package:buyit/utils/theme.dart';
 import 'package:buyit/view/widgets/home/card_items.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:get/get_utils/src/extensions/context_extensions.dart';
 
 
 class HomeScreen extends StatefulWidget {
@@ -24,12 +27,12 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     // backgroundColor: Colors.purpleAccent,
+      backgroundColor: context.theme.backgroundColor,
       body:
      Container(
        width: double.infinity,
        height: double.maxFinite,
-       child: Column(
+       child: ListView(
           children: [
         Container(
               color: const Color(0xffEFEFEF),
@@ -37,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Container(
                 margin: const EdgeInsets.only(top: 7, left: 15, right: 14, bottom: 7),
                 decoration: BoxDecoration(
-                color: const Color(0xff727C8E).withOpacity(0.1),
+                  color: Get.isDarkMode ? darkGreyClr : mainColor,
        borderRadius: const BorderRadius.all(
          Radius.circular(5),
        ),
@@ -62,25 +65,28 @@ class _HomeScreenState extends State<HomeScreen> {
             Padding(
               padding: const EdgeInsets.only(left: 8.0,right: 8,top: 8),
               child: Row(
-                children: [
-                  Text('National Day Products',
-                    style: TextStyle(color: Colors.green[400],
+                children:[
+                  Text(
+                    'National Day Products',
+                    style: TextStyle(
+                        color: Get.isDarkMode ? Colors.white : Colors.black,
                         fontSize: 15, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
             ),
-                                     SizedBox(height: 5,),
+                                     const SizedBox(height: 5,),
                                      CardItems(),
-        Padding(
+       Padding(
               padding: const EdgeInsets.only(left: 8.0,right: 8,top: 8),
                child:   Text('MostViewed Products',
-                    style: TextStyle(color: Colors.green[400],
+                    style: TextStyle(
+                        color: Get.isDarkMode ? Colors.white : Colors.black,
                         fontSize: 15, fontWeight: FontWeight.bold),
                   ),
               ),
-            SizedBox(height: 5,),
-          //  CardItems(),
+            const SizedBox(height: 5,),
+           CardItems(),
            ],
         ),
      ),

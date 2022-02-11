@@ -1,3 +1,4 @@
+import 'package:buyit/models/CategorieyModels.dart';
 import 'package:buyit/models/ProductDetailsModels.dart';
 import 'package:buyit/models/product_models.dart';
 import 'package:buyit/view/widgets/product_details/image_sliders.dart';
@@ -7,7 +8,8 @@ import 'package:get/get_utils/src/extensions/context_extensions.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
 
-  const ProductDetailsScreen({Key? key, required ProductModels productModels}) : super(key: key);
+  const ProductDetailsScreen({Key? key, required ProductModels productModels, categoryModels}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

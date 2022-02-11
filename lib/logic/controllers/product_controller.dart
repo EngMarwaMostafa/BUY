@@ -1,4 +1,4 @@
-import 'package:buyit/models/Product.dart';
+
 import 'package:buyit/models/product_models.dart';
 import 'package:buyit/services/product_services.dart';
 import 'package:flutter/cupertino.dart';
@@ -15,6 +15,7 @@ class ProductController extends GetxController {
 //search
   var searchList = <ProductModels>[].obs;
   TextEditingController searchTextController = TextEditingController();
+
 
   @override
   void onInit() {
@@ -43,22 +44,22 @@ class ProductController extends GetxController {
   }
 
   //logic for favorites Screen
-  void manageFavorites(int productId) async {
+  void manageFavourites(int productId) async {
     var existingIndex =
-        favouritesList.indexWhere((element) => element.id == productId);
+    favouritesList.indexWhere((element) => element.id == productId);
 
     if (existingIndex >= 0) {
       favouritesList.removeAt(existingIndex);
-      await stoarge.remove('isFavoritesList');
+      await stoarge.remove("isFavouritesList");
     } else {
       favouritesList
           .add(productList.firstWhere((element) => element.id == productId));
 
-      await stoarge.write('isFavoritesList', favouritesList);
+      await stoarge.write("isFavouritesList", favouritesList);
     }
   }
 
-  bool isFavorites(int productId) {
+  bool isFavourites(int productId) {
     return favouritesList.any((element) => element.id == productId);
   }
 

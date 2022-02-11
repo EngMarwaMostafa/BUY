@@ -20,17 +20,20 @@ void addProductsToCart(ProductModels productModels) {
  }
  }
 
-void removeProductsFromCart(ProductModels productModels){
- if(productsMap.containsKey(productModels) &&
-  productsMap[productModels] ==1 ) {
+
+void removeProductsFromCart(ProductModels productModels) {
+ if (productsMap.containsKey(productModels) &&
+     productsMap[productModels] == 1) {
   productsMap.removeWhere((key, value) => key == productModels);
- }else{
-  productsMap[ProductModels] -= 1;
+ } else {
+  productsMap[productModels] -= 1;
  }
+
+
 }
 
 void removeOneProduct(ProductModels productModels){
- productsMap.clear();
+ productsMap.removeWhere((key, value) => key == productModels);
 }
 
 

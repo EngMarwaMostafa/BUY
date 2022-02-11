@@ -1,39 +1,17 @@
 // To parse this JSON data, do
 //
-//     final login = loginFromJson(jsonString);
+//     final loginModel = loginModelFromJson(jsonString);
 
 import 'dart:convert';
 
-Login loginFromJson(String str) => Login.fromJson(json.decode(str));
+LoginResponse loginResponseFromJson(String str) =>
+    LoginResponse.fromJson(json.decode(str));
 
-String loginToJson(Login data) => json.encode(data.toJson());
+String loginResponseToJson(LoginResponse data) =>
+    json.encode(data.toJson());
 
-class Login {
-  Login({
-    this.status,
-    this.msg,
-    this.data,
-  });
-
-  bool? status;
-  String? msg;
-  Data? data;
-
-  factory Login.fromJson(Map<String, dynamic> json) => Login(
-    status: json["status"],
-    msg: json["msg"],
-    data: Data.fromJson(json["data"]),
-  );
-
-  Map<String, dynamic> toJson() => {
-    "status": status,
-    "msg": msg,
-    "data": data?.toJson(),
-  };
-}
-
-class Data {
-  Data({
+class LoginResponse {
+  LoginResponse({
     this.id,
     this.countryId,
     this.cityId,
@@ -57,27 +35,27 @@ class Data {
   });
 
   int? id;
-  dynamic countryId;
-  dynamic cityId;
-  dynamic stateId;
+  int? countryId;
+  int? cityId;
+  dynamic? stateId;
   String? name;
   String? email;
-  dynamic dateOfBirth;
+  dynamic? dateOfBirth;
   String? mobile;
   String? photo;
-  dynamic gender;
-  dynamic detail;
+  String? gender;
+  String? detail;
   int? status;
   String? type;
   int? isActivated;
   String? token;
   String? deviceToken;
-  DateTime? createdAt;
+  dynamic? createdAt;
   DateTime? updatedAt;
   Country? country;
-  dynamic city;
+  City? city;
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
+  factory LoginResponse.fromJson( Map<String, dynamic> json) => LoginResponse(
     id: json["id"],
     countryId: json["countryId"],
     cityId: json["cityId"],
@@ -94,10 +72,10 @@ class Data {
     isActivated: json["is_activated"],
     token: json["token"],
     deviceToken: json["device_token"],
-    createdAt: DateTime.parse(json["created_at"]),
+    createdAt: json["created_at"],
     updatedAt: DateTime.parse(json["updated_at"]),
     country: Country.fromJson(json["country"]),
-    city: json["city"],
+    city: City.fromJson(json["city"]),
   );
 
   Map<String, dynamic> toJson() => {
@@ -117,10 +95,30 @@ class Data {
     "is_activated": isActivated,
     "token": token,
     "device_token": deviceToken,
-    "created_at": createdAt?.toIso8601String(),
-    "updated_at": updatedAt?.toIso8601String(),
-    "country": country?.toJson(),
-    "city": city,
+    "created_at": createdAt,
+    "updated_at": updatedAt!.toIso8601String(),
+    "country": country!.toJson(),
+    "city": city!.toJson(),
+  };
+}
+
+class City {
+  City({
+    this.id,
+    this.name,
+  });
+
+  int? id;
+  String? name;
+
+  factory City.fromJson(Map<String, dynamic> json) => City(
+    id: json["id"],
+    name: json["name"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "name": name,
   };
 }
 
