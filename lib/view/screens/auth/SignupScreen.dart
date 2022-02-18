@@ -1,4 +1,4 @@
-import 'package:buyit/logic/controllers/Auth_controller.dart';
+import 'package:buyit/logic/controllers/Register_controller.dart';
 import 'package:buyit/utils/theme.dart';
 import 'package:buyit/view/screens/auth/LoginScreen.dart';
 import 'package:flutter/cupertino.dart';
@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/get_utils/src/extensions/context_extensions.dart';
 import '../MainScreen.dart';
 
@@ -17,13 +18,7 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  TextEditingController usernameController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController confirmPasswordController = TextEditingController();
-  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  final controller = Get.put(AuthController());
+  final controller = Get.find<RegisterController>();
 
   @override
   Widget build(BuildContext context) {
@@ -31,12 +26,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
       backgroundColor: context.theme.backgroundColor,
       body: SafeArea(
         child: Form(
-          key: _formKey,
+          key: controller.registerFormKey,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           child: ListView(
             children: <Widget>[
               Container(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                 child: Text(
                   'BUYIT',
                   style: TextStyle(
@@ -79,7 +75,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                       Padding(
                         padding:
-                            EdgeInsets.only(left: 15, right: 15, bottom: 31),
+                        EdgeInsets.only(left: 15, right: 15, bottom: 31),
                         child: Text(
                           'welcome, Please Create Your Account',
                           style: TextStyle(
@@ -93,12 +89,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             left: 10, right: 10, bottom: 18),
                         height: 55,
                         child: TextFormField(
-                          controller: usernameController,
-                          validator: (t) {
-                            if (t!.isEmpty) {
-                              return "Please enter your username.";
-                            }
-                            return null;
+                          controller: controller.usernameController,
+                          validator: (v) {},
+                          onSaved: (v) {
+                            controller.name = (v!);
                           },
                           decoration: const InputDecoration(
                             border: OutlineInputBorder(),
@@ -111,12 +105,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             left: 10, right: 10, bottom: 18),
                         height: 55,
                         child: TextFormField(
-                          controller: emailController,
-                          validator: (t) {
-                            if (t!.isEmpty) {
-                              return "Please enter your email.";
-                            }
-                            return null;
+                          controller: controller.emailController,
+                          validator: (v) {
+                            return controller.validateEmail(v!);
+                          },
+                          onSaved: (v) {
+                            controller.email = (v!);
                           },
                           decoration: const InputDecoration(
                             border: OutlineInputBorder(),
@@ -129,13 +123,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             left: 10, right: 10, bottom: 18),
                         height: 55,
                         child: TextFormField(
-                          controller: passwordController,
-                          validator: (t) {
-                            if (t!.isEmpty) {
-                              return "Please enter your password.";
-                            }
-                            return null;
+                          controller: controller.passwordController,
+                          validator: (v) {
+                            return controller.validatePassword(v!);
                           },
+                          onSaved: (v) {},
                           decoration: const InputDecoration(
                             border: OutlineInputBorder(),
                             labelText: 'Password',
@@ -147,99 +139,69 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             left: 10, right: 10, bottom: 18),
                         height: 55,
                         child: TextFormField(
-                          controller: confirmPasswordController,
-                          validator: (String? value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please re-enter password';
-                            }
-                            if (passwordController.text !=
-                                confirmPasswordController.text) {
-                              return "Password does not match";
-                            }
-                            return null;
+                          controller: controller.mobileController,
+                          validator: (v) {
+                            return controller.validateMobile(v!);
                           },
                           decoration: const InputDecoration(
                             border: OutlineInputBorder(),
-                            labelText: 'Confirm Password',
+                            labelText: 'mobile',
                           ),
                         ),
                       ),
-                      Container(
-                        margin: const EdgeInsets.only(bottom: 18),
-                        // padding: const EdgeInsets.only(bottom:18 ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
+
+                      Obx(() =>
+                      controller.isLoading.value == true ?
+                      const Center(child: CircularProgressIndicator()) :
+                      const Text(''),
+                      ),
+                      FlatButton(
+                        minWidth: 320,
+                        height: 48,
+                        child: const Text(
+                          'SIGN UP',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 18.0),
                         ),
-                        alignment: Alignment.center,
-                        child: FlatButton(
-                          minWidth: 320,
-                          height: 48,
-                          child: const Text(
-                            'SIGN UP',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 18.0),
-                          ),
-                          color: Colors.amber,
-                          textColor: Colors.white,
-                          onPressed: () async {
-                            if (_formKey.currentState!.validate()) {
-                              controller.register(
-                                  usernameController.text,
-                                  passwordController.text,
-                                  emailController.text,
-                                  confirmPasswordController.text);
-                              Navigator.of(context)
-                                  .pushReplacement(MaterialPageRoute(
-                                builder: (_) =>MainScreen(),
-                              ));
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text("Successfully registered!"),
-                                ),
-                              );
-                            } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content:
-                                      Text("Invalid username or password."),
-                                ),
-                              );
-                            }
-                          },
+                        color: Colors.amber,
+                        textColor: Colors.white,
+                        onPressed: () async {
+                          controller.doRegister();
+                        },
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        'Already have an account.',
+                        style: TextStyle(
+                            color: Get.isDarkMode ? Colors.white : Colors.black,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const LoginScreen()));
+                        },
+                        child: Text(
+                          'SignIn',
+                          style: TextStyle(
+                              color: Get.isDarkMode ? Colors.white : Colors
+                                  .black,
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
                         ),
                       ),
                     ],
                   ),
-                ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Text(
-                'Already have an account.',
-                style: TextStyle(
-                    color: Get.isDarkMode ? Colors.white : Colors.black,
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const LoginScreen()));
-                },
-                child: Text(
-                  'SignIn',
-                  style: TextStyle(
-                      color: Get.isDarkMode ? Colors.white : Colors.black,
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.center,
                 ),
               ),
             ],

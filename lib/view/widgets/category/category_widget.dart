@@ -11,7 +11,7 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 
 import 'category_items.dart';
-
+/*
 class CategoryWidget extends StatelessWidget {
   CategoryWidget({Key? key}) : super(key: key);
 
@@ -35,8 +35,8 @@ class CategoryWidget extends StatelessWidget {
                   onTap: () {
                     controller.getCategory();
                     Get.to(() => CategoryItems(
-                      categoryTitle: controller.dataList.value.toList()[index].title,
-                      categoryModels: controller.dataList.value.toList()[index],
+                    //  categoryTitle: controller.dataList.value.toList()[index].title,
+                    //  categoryModels: controller.dataList.value.toList()[index],
                     ),
                     );
                   },
@@ -85,3 +85,4 @@ class CategoryWidget extends StatelessWidget {
   }
 }
 
+*/

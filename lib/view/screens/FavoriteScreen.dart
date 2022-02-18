@@ -119,7 +119,7 @@ class FavoriteScreen extends StatelessWidget {
                   const SizedBox(height: 20),
                   Text(
                     title,
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: Colors.black, fontWeight: FontWeight.bold),
                   ),
                   Row(

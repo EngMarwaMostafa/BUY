@@ -7,7 +7,7 @@ import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get_storage/get_storage.dart';
 import 'language/loalization.dart';
-import 'logic/controllers/Auth_controller.dart';
+import 'logic/controllers/aut_controller.dart';
 import 'logic/controllers/theme_controller.dart';
 
 final controller = Get.put(AuthController());

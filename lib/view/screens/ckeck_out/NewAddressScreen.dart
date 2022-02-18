@@ -1,5 +1,6 @@
-import 'package:buyit/logic/controllers/Auth_controller.dart';
+import 'package:buyit/logic/controllers/Register_controller.dart';
 import 'package:buyit/logic/controllers/address_controller.dart';
+import 'package:buyit/logic/controllers/aut_controller.dart';
 import 'package:buyit/routes/routes.dart';
 import 'package:buyit/utils/theme.dart';
 import 'package:flutter/cupertino.dart';

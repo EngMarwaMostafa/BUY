@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
-class ClothesInfo extends StatelessWidget {
-  const ClothesInfo({Key? key}) : super(key: key);
+class ReviewScreen extends StatelessWidget {
+  const ReviewScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

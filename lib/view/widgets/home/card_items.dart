@@ -56,9 +56,10 @@ class CardItems extends StatelessWidget {
                               productId: controller.productList[index].id,
                               productname: controller.productList[index].name,
                               onTap: () {
-                                Get.to(() => ProductDetailsScreen(
-                                      productModels: controller.productList[index],
-                                    ));
+                             //   Get.to(() => ProductDetailsScreen(
+                                  //    productModels: controller.productList[index],
+                                   //    productDetailsModels: null,
+                                 //   ));
                               });
                         } else {
                           return buildCardItems(
@@ -69,9 +70,9 @@ class CardItems extends StatelessWidget {
                               productId: controller.searchList[index].id,
                               productname: controller.searchList[index].name,
                               onTap: () {
-                                Get.to(() => ProductDetailsScreen(
-                                  productModels: controller.searchList[index],
-                                    ));
+                               // Get.to(() => ProductDetailsScreen(
+                             //  productModels: controller.searchList[index],
+                                  //  ));
                               });
                         }
                       },

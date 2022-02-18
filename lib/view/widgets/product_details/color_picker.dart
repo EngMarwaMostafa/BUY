@@ -1,10 +1,14 @@
+import 'package:buyit/models/ProductDetailsModels.dart';
+import 'package:buyit/view/screens/ProductDetailsScreen.dart';
 import 'package:flutter/cupertino.dart';
 
-/*
+
 class ColorPicker extends StatelessWidget {
 final  List<String> color;
+final ProductDetailsModels productDetailsModels;
   const ColorPicker({
     Key? key, required this.color,
+    required this.productDetailsModels,
   }) : super(key: key);
 
   @override
@@ -17,7 +21,7 @@ final  List<String> color;
       child: Container(
         padding: const EdgeInsets.all(15),
         decoration: BoxDecoration(
-         // color,
+    //     color:productDetailsModels.color[index],
           shape: BoxShape.circle,
         ),
       ),
@@ -25,4 +29,3 @@ final  List<String> color;
   }
 }
 
- */

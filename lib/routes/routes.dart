@@ -1,7 +1,11 @@
 
-import 'package:buyit/logic/bindings/AuthBinding.dart';
+import 'package:buyit/logic/bindings/RegisterBinding.dart';
+import 'package:buyit/logic/bindings/LoginBinding.dart';
 import 'package:buyit/logic/bindings/MainBinding.dart';
 import 'package:buyit/logic/bindings/ProdutBinding.dart';
+import 'package:buyit/logic/bindings/SignupBinding.dart';
+import 'package:buyit/view/screens/ProductDetailsScreen.dart';
+import 'package:buyit/view/screens/ReviewScreen.dart';
 import 'package:buyit/view/screens/auth/ForgotPasswordScreen.dart';
 import 'package:buyit/view/screens/ckeck_out/EditAddressScreen.dart';
 import 'package:buyit/view/screens/ckeck_out/NewAddressScreen.dart';
@@ -28,18 +32,19 @@ class AppRoutes {
     GetPage(
         name: Routes.signUpScreen ,
         page: () => const SignUpScreen(),
-        binding: AuthBinding()),
+        binding: SignupBinding()),
 
     GetPage(
         name: Routes.loginScreen ,
         page: () =>  const LoginScreen(),
-        binding: AuthBinding()),
+        binding: LoginBinding()),
+
 
     GetPage(
         name: Routes.mainScreen ,
         page: () => MainScreen(),
         bindings:[
-          AuthBinding(),
+          LoginBinding(),
           MainBininding(),
           ProductBinding(),
         ],
@@ -49,7 +54,7 @@ class AppRoutes {
       name: Routes.ShoppingCartScreen ,
       page: () => ShoppingCartScreen(),
       bindings:[
-        AuthBinding(),
+       LoginBinding(),
         ProductBinding(),
       ],
     ),
@@ -57,6 +62,11 @@ class AppRoutes {
     GetPage(
       name: Routes.favoriteScreen,
       page: () => FavoriteScreen(),
+    ),
+
+    GetPage(
+      name: Routes.reviewScreen,
+      page: () => ReviewScreen(),
     ),
 
     GetPage(
@@ -114,7 +124,7 @@ class Routes {
   static const homeScreen = '/home_screen';
   static const mainScreen = '/mainScreen';
   static const ShoppingCartScreen = '/shoppingCartScreen';
- // static  const productDetailsScreen = '/productDetailsScreen';
+ static  const productDetailsScreen = '/productDetailsScreen';
   static const favoriteScreen ='/favoriteScreen';
   static const sideBar ='/sideBar';
   static const profileScreen ='/profileScreen';
@@ -122,4 +132,5 @@ class Routes {
   static const paymentScreen = '/paymentScreen ';
   static const newAdressScreen = '/newAddressScreen';
   static const editAdressScreen = '/editAddressScreen';
+  static const reviewScreen = '/reviewScreen';
 }

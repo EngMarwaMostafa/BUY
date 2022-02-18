@@ -3,53 +3,53 @@
 //     final productDetailsModels = productDetailsModelsFromJson(jsonString);
 
 import 'dart:convert';
-/*
+
 ProductDetailsModels productDetailsModelsFromJson(String str) => ProductDetailsModels.fromJson(json.decode(str));
 
 String productDetailsModelsToJson(ProductDetailsModels data) => json.encode(data.toJson());
 
 class ProductDetailsModels {
   ProductDetailsModels({
-    required this.id,
-    required this.categoryId,
-    required this.shopId,
-    required this.vendorId,
-    required this.name,
-    required this.description,
-    required this.price,
-    required this.quantity,
-    required this.modalNumber,
-    required this.department,
-    required this.coverImg,
-    required this.slug,
-    required this.status,
-    required this.date,
-    required this.size,
-    required this.color,
-    required this.createdAt,
+     this.id,
+     this.categoryId,
+     this.shopId,
+     this.vendorId,
+     this.name,
+     this.description,
+     this.price,
+     this.quantity,
+     this.modalNumber,
+     this.department,
+     this.coverImg,
+     this.slug,
+     this.status,
+     this.date,
+     this.size,
+     this.color,
+     this.createdAt,
     this.updatedAt,
-    required this.productImage,
+     this.productImage,
   });
 
-  int id;
-  int categoryId;
-  int shopId;
-  int vendorId;
-  String name;
-  String description;
-  int price;
-  int quantity;
-  String modalNumber;
-  String department;
-  String coverImg;
-  String slug;
-  int status;
-  DateTime date;
-  List<String> size;
-  List<String> color;
-  DateTime createdAt;
+  int? id;
+  int? categoryId;
+  int? shopId;
+  int? vendorId;
+  String? name;
+  String? description;
+  int? price;
+  int? quantity;
+  String? modalNumber;
+  String? department;
+  String? coverImg;
+  String? slug;
+  int? status;
+  DateTime? date;
+  List<String>? size;
+  List<String>? color;
+  DateTime? createdAt;
   dynamic updatedAt;
-  List<ProductImage> productImage;
+  List<ProductImage>? productImage;
 
   factory ProductDetailsModels.fromJson(Map<String, dynamic> json) => ProductDetailsModels(
     id: json["id"],
@@ -87,12 +87,12 @@ class ProductDetailsModels {
     "cover_img": coverImg,
     "slug": slug,
     "status": status,
-    "date": "${date.year.toString().padLeft(4, '0')}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}",
-    "size": List<dynamic>.from(size.map((x) => x)),
-    "color": List<dynamic>.from(color.map((x) => x)),
-    "created_at": createdAt.toIso8601String(),
+    "date": "${date!.year.toString().padLeft(4, '0')}-${date!.month.toString().padLeft(2, '0')}-${date!.day.toString().padLeft(2, '0')}",
+    "size": List<dynamic>.from(size!.map((x) => x)),
+    "color": List<dynamic>.from(color!.map((x) => x)),
+    "created_at": createdAt!.toIso8601String(),
     "updated_at": updatedAt,
-    "product_image": List<dynamic>.from(productImage.map((x) => x.toJson())),
+    "product_image": List<dynamic>.from(productImage!.map((x) => x.toJson())),
   };
 }
 
@@ -127,4 +127,3 @@ class ProductImage {
     "updated_at": updatedAt,
   };
 }
-*/

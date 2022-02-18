@@ -17,7 +17,13 @@ class CategoryController extends GetxController {
   }
 
   void getCategory() async{
-    var categories = await CategoryServices.getCategory();
-  }
+    try {
+      isLoading(true);
+      var categories = await CategoryServices.getCategory();
+      if (categories != null) {
+        dataList.value =categories as Set<CategoryModels>;
+      }
+    } finally {isLoading(false);}
 
+  }
 }

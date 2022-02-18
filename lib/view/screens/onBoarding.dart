@@ -1,5 +1,6 @@
 
-import 'package:buyit/logic/controllers/Auth_controller.dart';
+import 'package:buyit/logic/controllers/Register_controller.dart';
+import 'package:buyit/logic/controllers/aut_controller.dart';
 import 'package:buyit/logic/controllers/cart_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

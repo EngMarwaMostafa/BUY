@@ -64,10 +64,10 @@ class CategoryItems extends StatelessWidget {
                   categoryId: categoryController.dataList.value.toList()[index].id,
                   categoryModels: categoryController.dataList.value.toList()[index],
                   onTap: () {
-                    Get.to(() => ProductDetailsScreen(
-                      productModels: controller.productList[index],
-                      categoryModels: categoryController.dataList.value.toList()[index],
-                    ));
+                  //  Get.to(() => ProductDetailsScreen(
+                    //  productModels: controller.productList[index],
+                    //  categoryModels: categoryController.dataList.value.toList()[index],
+                  //  ));
                },
               );
             },

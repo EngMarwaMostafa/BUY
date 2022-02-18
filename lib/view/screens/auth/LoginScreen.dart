@@ -1,11 +1,14 @@
-import 'package:buyit/logic/controllers/Auth_controller.dart';
+import 'package:buyit/logic/controllers/Register_controller.dart';
+import 'package:buyit/logic/controllers/login_controller.dart';
 import 'package:buyit/routes/routes.dart';
 import 'package:buyit/utils/theme.dart';
+import 'package:buyit/view/screens/ProductDetailsScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:get/get_utils/src/extensions/context_extensions.dart';
 import '../MainScreen.dart';
@@ -23,12 +26,12 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = TextEditingController();
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  final controller = Get.put(AuthController());
+  final controller = Get.put(LoginController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: context.theme.backgroundColor,
+      //backgroundColor: context.theme.backgroundColor,
       body: SafeArea(
         child: Form(
           key: _formKey,
@@ -93,13 +96,11 @@ class _LoginScreenState extends State<LoginScreen> {
                             left: 10, right: 10, bottom: 18),
                         height: 55,
                         child: TextFormField(
-                          controller: emailController,
-                          validator: (t) {
-                            if (t!.isEmpty) {
-                              return "Please enter your email.";
-                            }
-                            return null;
+                          controller: controller.emailController,
+                          validator: (v) {
+                            return controller.validateEmail(v!);
                           },
+                          onSaved: (v) {},
                           decoration: const InputDecoration(
                             border: OutlineInputBorder(),
                             labelText: 'Email',
@@ -110,22 +111,16 @@ class _LoginScreenState extends State<LoginScreen> {
                         padding: const EdgeInsets.only(
                             left: 10, right: 10, bottom: 18),
                         height: 55,
-                        child: GetBuilder<AuthController>(
-                          builder: (_) {
-                            return TextFormField(
-                              controller: passwordController,
-                              validator: (t) {
-                                if (t!.isEmpty) {
-                                  return "Please enter your password.";
-                                }
-                                return null;
-                              },
-                              decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: 'Password',
-                              ),
-                            );
+                        child: TextFormField(
+                          controller: controller.passwordController,
+                          validator: (v) {
+                            return controller.validatePassword(v!);
                           },
+                          onSaved: (v) {},
+                          decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'Password',
+                          ),
                         ),
                       ),
                       FlatButton(
@@ -143,94 +138,56 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                       ),
-                      Container(
-                        margin: const EdgeInsets.only(bottom: 18),
-                        // padding: const EdgeInsets.only(bottom:18 ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
+                      Obx(() => controller.isLoading.value == true
+                          ? const Center(child: CircularProgressIndicator())
+                          : const Text('')),
+                      FlatButton(
+                        minWidth: 320,
+                        height: 48,
+                        child: const Text(
+                          'LOGIN',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 18.0),
                         ),
-                        alignment: Alignment.center,
-                        child: GetBuilder<AuthController>
-                          (builder: (_) {
-                          return
-                            FlatButton(
-                              minWidth: 320,
-                              height: 48,
-                              child: const Text(
-                                'LOGIN',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(fontSize: 18.0),
-                              ),
-                              color: Colors.amber,
-                              textColor: Colors.white,
-                              onPressed: () {
-                                if (_formKey.currentState!.validate()) {
-                                  var result = controller.login(
-                                      passwordController.text,emailController.text);
-                                  if (result) {
-                                    Navigator.of(context)
-                                        .pushReplacement(MaterialPageRoute(
-                                      builder: (context) => MainScreen(),
-                                    ));
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text(
-                                            "Successfully logged in."),
-                                      ),
-                                    );
-                                  } else {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text(
-                                            "Invalid login credentials."),
-                                      ),
-                                    );
-                                  }
-                                } else {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content:
-                                      Text("Invalid username or password."),
-                                    ),
-                                  );
-                                }
-                              },
-                            );
+                        color: Colors.amber,
+                        textColor: Colors.white,
+                        onPressed: () {
+                          controller.doLogin();
                         },
                       ),
+                      const SizedBox(
+                        height: 38,
+                      ),
+                      Text(
+                        'Dont have an account? Swipe right to',
+                        style: TextStyle(
+                            color: Get.isDarkMode ? Colors.white : Colors.black,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const SignUpScreen()));
+                        },
+                        child: Text(
+                          'Create a New Account',
+                          style: TextStyle(
+                              color:
+                                  Get.isDarkMode ? Colors.white : Colors.black,
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                     ],
                   ),
-                ),
-              ),
-              const SizedBox(
-                height: 38,
-              ),
-              Text(
-                'Dont have an account? Swipe right to',
-                style: TextStyle(
-                    color: Get.isDarkMode ? Colors.white : Colors.black,
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const SignUpScreen()));
-                },
-                child: Text(
-                  'Create a New Account',
-                  style: TextStyle(
-                      color: Get.isDarkMode ? Colors.white : Colors.black,
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.center,
                 ),
               ),
             ],
